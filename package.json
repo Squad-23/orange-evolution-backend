@@ -35,7 +35,53 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+        "path": "./node_modules/cz-conventional-changelog",
+        "types": {
+          "✨ feat": {
+            "description": "A new feature",
+            "title": "Features"
+          },
+          "🐛 fix": {
+            "description": "A bug fix",
+            "title": "Bug Fixes"
+          },
+          "📚 docs": {
+            "description": "Documentation only changes",
+            "title": "Documentations"
+          },
+          "💄 style": {
+            "description": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)",
+            "title": "Code Styles"
+          },
+          "🔄 refactor": {
+            "description": "A code change that neither fixes a bug nor adds a feature",
+            "title": "Refactors"
+          },
+          "⚡ perf": {
+            "description": "A code change that improves performance",
+            "title": "Performance"
+          },
+          "🧪 test": {
+            "description": "Adding missing tests or correcting existing tests",
+            "title": "Tests"
+          },
+          "📦 build": {
+            "description": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)",
+            "title": "Build"
+          },
+          "🧱 ci": {
+            "description": "Changes to our CI configuration files and scripts (example scopes Travis, Circle, BrowserStack, SauceLabs)",
+            "title": "Continuous Integration"
+          },
+          "🔧 chore": {
+            "description": "Other changes that don't modify src or test files",
+            "title": "Chores"
+          },
+          "💥 revert": {
+            "description": "Reverts a previous commit",
+            "title": "Reverts"
+          }
+        }
     }
   }
 }

@@ -1,7 +1,18 @@
 const createUserController = (req, res) => {
-  const user = req.body;
+  const {
+    name, email, senha, thisADM,
+  } = req.body;
 
-  res.json(user);
+  if (!name || !email || !senha || !thisADM) {
+    res.status(400).send({ mensagen: 'Preencha todos os campos.' });
+  }
+  res.status(201).send({
+    user: {
+      name,
+      email,
+      thisADM,
+    },
+  });
 };
 
-module.exports = (createUserController);
+module.exports = { createUserController };
