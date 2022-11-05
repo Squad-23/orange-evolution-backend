@@ -8,18 +8,9 @@ const findByIdUserService = (idUser) => User.findById(idUser);
 
 const findByEmailUserService = (email) => User.findOne({ email });
 
-const updateUserService = (id, name, email, password, thisADM) => User.findOneAndUpdate(
-    { _id: id },
-    {
-        name,
-        email,
-        password,
-        thisADM,
-    },
-    { rawResult: true },
-);
+const updateUserService = (user) => User.updateOne(user);
 
-const deleteUserService = (idUser) => User.findOneAndDelete(idUser);
+const deleteUserService = (id) => User.findByIdAndDelete({ _id: id });
 
 module.exports = {
     findByEmailUserService,
