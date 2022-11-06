@@ -1,6 +1,7 @@
 {
   "name": "orange-evolution-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "This project consists of developing an API for a web application of a course trail manager for the hackathon of the FCamara group.",
   "main": "index.js",
   "scripts": {

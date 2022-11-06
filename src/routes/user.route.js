@@ -1,13 +1,16 @@
-const route = require('express').Router();
-const userController = require('../controllers/user.controller');
-const idValidator = require('../middlewares/idValidator.middleware');
-const userValidator = require('../middlewares/userValidator.middleware');
+/* eslint-disable import/extensions */
+import router from 'express';
+import userController from '../controllers/user.controller.js';
+import idValidator from '../middlewares/idValidator.middleware.js';
+import userValidator from '../middlewares/userValidator.middleware.js';
+
+const route = router.Router();
 
 route.post('/create', userController.createUserController);
 route.get('/', userController.findAllUserController);
 route.get('/findById/:id', idValidator.validId, userValidator.validUser, userController.findUserByIdController);
 route.get('/findByEmail/:email', userController.findUserByEmailController);
 route.patch('/update/:id', idValidator.validId, userValidator.validUser, userController.updateUserController);
-route.delete('/delete/:id', idValidator.validId, userValidator.validUser, userController.deleteUserController);
+route.delete('/delete/:id', idValidator.validId, userController.deleteUserController);
 
-module.exports = route;
+export default route;

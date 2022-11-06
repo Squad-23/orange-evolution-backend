@@ -1,4 +1,5 @@
-const userService = require('../services/user.service');
+/* eslint-disable import/extensions */
+import userService from '../services/user.service.js';
 
 const validUser = async (req, res, next) => {
     try {
@@ -19,4 +20,4 @@ const validUser = async (req, res, next) => {
     }
 };
 
-module.exports = { validUser };
+export default { validUser };

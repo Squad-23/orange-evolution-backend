@@ -1,4 +1,5 @@
-const userService = require('../services/user.service');
+/* eslint-disable import/extensions */
+import userService from '../services/user.service.js';
 
 const createUserController = async (req, res) => {
     try {
@@ -112,7 +113,7 @@ const deleteUserController = async (req, res) => {
     }
 };
 
-module.exports = {
+export default {
     createUserController,
     findAllUserController,
     findUserByIdController,

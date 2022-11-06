@@ -1,4 +1,5 @@
-const User = require('../models/User');
+/* eslint-disable import/extensions */
+import User from '../models/User.js';
 
 const createUserService = (body) => User.create(body);
 
@@ -12,7 +13,7 @@ const updateUserService = (user) => User.updateOne(user);
 
 const deleteUserService = (id) => User.findByIdAndDelete({ _id: id });
 
-module.exports = {
+export default {
     findByEmailUserService,
     createUserService,
     findAllUserService,

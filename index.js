@@ -1,10 +1,9 @@
-/* eslint-disable import/newline-after-import */
-/* eslint-disable no-template-curly-in-string */
-const express = require('express');
-const app = express();
-const userRoute = require('./src/routes/user.route');
-const connectDatabase = require('./src/database/db');
+/* eslint-disable import/extensions */
+import express from 'express';
+import connectDatabase from './src/database/db.js';
+import userRoute from './src/routes/user.route.js';
 
+const app = express();
 const port = 3000;
 
 connectDatabase();
