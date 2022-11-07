@@ -9,8 +9,9 @@ const route = router.Router();
 route.post('/create', userController.createUserController);
 route.get('/', userController.findAllUserController);
 route.get('/findById/:id', idValidator.validId, userValidator.validUser, userController.findUserByIdController);
-route.get('/findByEmail/:email', userController.findUserByEmailController);
-route.patch('/update/:id', idValidator.validId, userValidator.validUser, userController.updateUserController);
+route.get('/findByEmail/:email', userValidator.validEmailUser, userController.findUserByEmailController);
+route.put('/update/:id', idValidator.validId, userValidator.validUser, userController.updateUserController);
 route.delete('/delete/:id', idValidator.validId, userController.deleteUserController);
+route.post('/login', userValidator.validEmailUser, userController.login);
 
 export default route;

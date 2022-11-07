@@ -62,15 +62,7 @@ const findUserByIdController = async (req, res) => {
 
 const findUserByEmailController = async (req, res) => {
     try {
-        const { email } = req.params;
-
-        const user = await userService.findByEmailUserService(email);
-
-        if (!user) {
-            return res.status(400).send({ message: 'User not found' });
-        }
-
-        return res.send(user);
+        return res.send(req.user);
     } catch (err) {
         return res.status(500).send({ message: err.message });
     }
@@ -78,25 +70,21 @@ const findUserByEmailController = async (req, res) => {
 
 const updateUserController = async (req, res) => {
     try {
-        const { id } = req.id;
         const { user } = req;
 
-        const userUpdate = {
-            id,
-            name: !req.body.name ? user.name : req.body.name,
-            email: !req.body.email ? user.email : req.body.email,
-            password: !req.body.password ? user.password : req.body.password,
-            thisADM: !req.body.thisADM ? user.thisADM : req.body.thisADM,
-        };
+        user.name = !req.body.name ? user.name : req.body.name;
+        user.email = !req.body.email ? user.email : req.body.email;
+        user.password = !req.body.password ? user.password : req.body.password;
+        user.thisADM = !req.body.thisADM ? user.thisADM : req.body.thisADM;
 
-        await userService.updateUserService(userUpdate);
+        await userService.updateUserService(user);
 
         return res.send({
             message: 'User update successfully',
             user: {
-                id: userUpdate.id,
-                name: userUpdate.name,
-                email: userUpdate.email,
+                id: user.id,
+                name: user.name,
+                email: user.email,
             },
         });
     } catch (err) {
@@ -113,6 +101,18 @@ const deleteUserController = async (req, res) => {
     }
 };
 
+const login = async (req, res) => {
+    try {
+        if (req.user.password === req.password) {
+            return res.status(202).send({ message: 'User login successfully' });
+        }
+
+        return res.status(401).send({ message: 'Incorrect data' });
+    } catch (err) {
+        return res.status(500).send({ message: err.message });
+    }
+};
+
 export default {
     createUserController,
     findAllUserController,
@@ -120,4 +120,5 @@ export default {
     findUserByEmailController,
     updateUserController,
     deleteUserController,
+    login,
 };
