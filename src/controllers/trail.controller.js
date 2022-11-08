@@ -64,15 +64,15 @@ const findTrailByIdController = async (req, res) => {
 
 const findTrailByTitleController = async (req, res) => {
     try {
-        const title = req.param;
+        const { title } = req.params;
 
         const trail = await trailService.findByTitleTrailService(title);
 
         if (!trail) {
-            return res.status(401).send({ message: 'Incorrect data' });
+            return res.status(400).send({ message: 'Incorrect data' });
         }
 
-        return res.send(req.trail);
+        return res.send(trail);
     } catch (err) {
         return res.status(500).send({ message: err.message });
     }
@@ -80,15 +80,15 @@ const findTrailByTitleController = async (req, res) => {
 
 const findTrailByAreaController = async (req, res) => {
     try {
-        const area = req.param;
+        const { area } = req.params;
 
         const trail = await trailService.findByAreaTrailService(area);
 
         if (!trail) {
-            return res.status(401).send({ message: 'Incorrect data' });
+            return res.status(400).send({ message: 'Incorrect data' });
         }
 
-        return res.send(req.trail);
+        return res.send(trail);
     } catch (err) {
         return res.status(500).send({ message: err.message });
     }

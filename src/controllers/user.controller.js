@@ -62,7 +62,7 @@ const findUserByIdController = async (req, res) => {
 
 const findUserByEmailController = async (req, res) => {
     try {
-        const email = req.param;
+        const { email } = req.params;
 
         const user = await userService.findByEmailUserService(email);
 
@@ -70,7 +70,7 @@ const findUserByEmailController = async (req, res) => {
             return res.status(401).send({ message: 'Incorrect data' });
         }
 
-        return res.send(req.user);
+        return res.send(user);
     } catch (err) {
         return res.status(500).send({ message: err.message });
     }
@@ -115,9 +115,10 @@ const deleteUserController = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-
+        console.log(email);
+        console.log(password);
         const user = await userService.findByEmailUserService(email);
-
+        console.log(user);
         if (!user) {
             return res.status(401).send({ message: 'Incorrect data' });
         }
