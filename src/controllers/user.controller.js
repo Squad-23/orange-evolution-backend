@@ -62,6 +62,14 @@ const findUserByIdController = async (req, res) => {
 
 const findUserByEmailController = async (req, res) => {
     try {
+        const email = req.param;
+
+        const user = await userService.findByEmailUserService(email);
+
+        if (!user) {
+            return res.status(401).send({ message: 'Incorrect data' });
+        }
+
         return res.send(req.user);
     } catch (err) {
         return res.status(500).send({ message: err.message });
@@ -72,12 +80,15 @@ const updateUserController = async (req, res) => {
     try {
         const { user } = req;
 
-        user.name = !req.body.name ? user.name : req.body.name;
-        user.email = !req.body.email ? user.email : req.body.email;
-        user.password = !req.body.password ? user.password : req.body.password;
-        user.thisADM = !req.body.thisADM ? user.thisADM : req.body.thisADM;
+        const userUpdate = {
+            id: user.id,
+            name: !req.body.name ? user.name : req.body.name,
+            email: user.email,
+            password: !req.body.password ? user.password : req.body.password,
+            thisADM: !req.body.thisADM ? user.thisADM : req.body.thisADM,
+        };
 
-        await userService.updateUserService(user);
+        await userService.updateUserService(userUpdate);
 
         return res.send({
             message: 'User update successfully',
@@ -103,7 +114,14 @@ const deleteUserController = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        if (req.user.password === req.password) {
+        const { email, password } = req.body;
+
+        const user = await userService.findByEmailUserService(email);
+
+        if (!user) {
+            return res.status(401).send({ message: 'Incorrect data' });
+        }
+        if (user.password === password) {
             return res.status(202).send({ message: 'User login successfully' });
         }
 
