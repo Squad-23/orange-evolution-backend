@@ -83,9 +83,8 @@ const updateUserController = async (req, res) => {
         const userUpdate = {
             id: user.id,
             name: !req.body.name ? user.name : req.body.name,
-            email: user.email,
             password: !req.body.password ? user.password : req.body.password,
-            thisADM: !req.body.thisADM ? user.thisADM : req.body.thisADM,
+            thisADM: user.thisADM,
         };
 
         await userService.updateUserService(userUpdate);
@@ -93,9 +92,9 @@ const updateUserController = async (req, res) => {
         return res.send({
             message: 'User update successfully',
             user: {
-                id: user.id,
-                name: user.name,
-                email: user.email,
+                id: userUpdate.id,
+                name: userUpdate.name,
+                email: userUpdate.email,
             },
         });
     } catch (err) {
@@ -115,10 +114,9 @@ const deleteUserController = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log(email);
-        console.log(password);
-        const user = await userService.findByEmailUserService(email);
-        console.log(user);
+
+        const user = await userService.loginUserService(email);
+
         if (!user) {
             return res.status(401).send({ message: 'Incorrect data' });
         }
