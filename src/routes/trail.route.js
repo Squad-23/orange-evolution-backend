@@ -12,6 +12,6 @@ route.get('/findById/:id', idValidator.validId, trailValidator.validTrail, trail
 route.get('/findByTitle/:title', trailController.findTrailByTitleController);
 route.get('/findByArea/:area', trailController.findTrailByAreaController);
 route.patch('/update/:id', idValidator.validId, trailValidator.validTrail, trailController.updateTrailController);
-route.delete('/delete/:id', idValidator.validId, trailController.deleteTrailController);
+route.delete('/delete/:id', idValidator.validId, trailValidator.validTrail, trailController.deleteTrailController);
 
 export default route;

@@ -111,9 +111,9 @@ const updateTrailController = async (req, res) => {
         return res.send({
             message: 'trail update successfully',
             trail: {
-                id: trail.id,
-                title: trail.title,
-                area: trail.area,
+                id: trailUpdate.id,
+                title: trailUpdate.title,
+                area: trailUpdate.area,
             },
         });
     } catch (err) {

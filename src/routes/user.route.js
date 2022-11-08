@@ -11,7 +11,7 @@ route.get('/', userController.findAllUserController);
 route.get('/findById/:id', idValidator.validId, userValidator.validUser, userController.findUserByIdController);
 route.get('/findByEmail/:email', userController.findUserByEmailController);
 route.patch('/update/:id', idValidator.validId, userValidator.validUser, userController.updateUserController);
-route.delete('/delete/:id', idValidator.validId, userController.deleteUserController);
+route.delete('/delete/:id', idValidator.validId, userValidator.validUser, userController.deleteUserController);
 route.post('/login', userController.login);
 
 export default route;
