@@ -4,14 +4,15 @@ import contentService from '../services/content.service.js';
 const createContentController = async (req, res) => {
     try {
         const {
-            subject, title, fileType, link, time,
+            idModule, subject, title, fileType, link, time,
         } = req.body;
 
-        if (!subject || !title || !fileType || !link || !time) {
+        if (!idModule || !subject || !title || !fileType || !link || !time) {
             return res.status(400).send({ message: 'Fill in all fields' });
         }
 
-        const contentRes = {
+        const contentReq = {
+            idModule,
             subject,
             title,
             fileType,
@@ -19,7 +20,7 @@ const createContentController = async (req, res) => {
             time,
         };
 
-        const content = await contentService.createContentService(contentRes);
+        const content = await contentService.createContentService(contentReq);
 
         if (!content) {
             return res.status(400).send({ message: 'Error creating content' });
@@ -29,6 +30,7 @@ const createContentController = async (req, res) => {
             message: 'Content created successfully',
             content: {
                 id: content.id,
+                idModule,
                 subject,
                 title,
                 fileType,
@@ -75,35 +77,57 @@ const findContentBySubjectController = async (req, res) => {
 const updateContentController = async (req, res) => {
     try {
         const { id } = req.params;
-        const { content } = req;
+        const {
+            subject, title, fileType, link, time,
+        } = req.body;
 
-        console.log('aaaa', req.body.title);
-        console.log('oiii', content.title);
+        const content = await contentService.updateContentService(id, req.body);
 
-        const contentUpdate = {
-            id,
-            subject: !req.body.subject ? content.subject : req.body.subject,
-            title: !req.body.title ? content.title : req.body.title,
-            fileType: !req.body.fileType ? content.fileType : req.body.fileType,
-            link: !req.body.link ? content.link : req.body.link,
-            time: !req.body.time ? content.time : req.body.time,
-        };
-
-        await contentService.updateContentService(contentUpdate);
+        if (!content) {
+            return res.status(400).json({ message: 'Error updating content' });
+        }
 
         return res.send({
             message: 'Content update successfully',
             content: {
-                id: contentUpdate.id,
-                subject: contentUpdate.subject,
-                title: contentUpdate.title,
-                fileType: contentUpdate.fileType,
-                link: contentUpdate.link,
-                time: contentUpdate.time,
+                id,
+                subject,
+                title,
+                fileType,
+                link,
+                time,
             },
         });
+        // return res.send({
+        //     message: 'Content update successfully',
+        //     content: {
+        //         id: contentUpdate.id,
+        //         subject: contentUpdate.subject,
+        //         title: contentUpdate.title,
+        //         fileType: contentUpdate.fileType,
+        //         link: contentUpdate.link,
+        //         time: contentUpdate.time,
+        //     },
+        // });
     } catch (err) {
         return res.status(500).send({ message: err.message });
+    }
+};
+
+const deleteContentController = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const content = await contentService.deleteContentService(id);
+
+        if (!content) {
+            return res.status(400).json({ message: 'Error deleting content' });
+        }
+
+        return res.status(200).json({ message: 'Content deleted' });
+    } catch (err) {
+        console.log('entrei no erro');
+        return res.status(500).json({ message: err.message });
     }
 };
 
@@ -112,4 +136,5 @@ export default {
     findAllContentController,
     findContentBySubjectController,
     updateContentController,
+    deleteContentController,
 };

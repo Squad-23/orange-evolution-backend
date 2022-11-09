@@ -21,6 +21,10 @@ const ContentSchema = new Schema({
     time: {
         type: Number,
     },
+    idModule: {
+        type: Schema.Types.ObjectId,
+        ref: 'Module',
+    },
 });
 
 const Content = model('Content', ContentSchema);
