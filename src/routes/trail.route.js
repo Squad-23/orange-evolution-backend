@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import router from 'express';
 import trailController from '../controllers/trail.controller.js';
 import idValidator from '../middlewares/idValidator.middleware.js';
