@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import trailService from '../services/trail.service.js';
 
 const validTrail = async (req, res, next) => {

@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import userService from '../services/user.service.js';
 
 const createUserController = async (req, res) => {

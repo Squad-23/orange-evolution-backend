@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import router from 'express';
 import userController from '../controllers/user.controller.js';
 import idValidator from '../middlewares/idValidator.middleware.js';

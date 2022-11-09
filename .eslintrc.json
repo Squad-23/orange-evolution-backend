@@ -11,6 +11,8 @@
         "sourceType": "module"
     },
     "rules": {
-        "indent": ["error", 4]
+        "indent": ["error", 4],
+        "linebreak-style": "off",
+        "import/extensions": "never"
     }
 }

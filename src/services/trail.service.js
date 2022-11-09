@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import Trail from '../models/Trail.js';
 
 const createTrailService = (body) => Trail.create(body);
