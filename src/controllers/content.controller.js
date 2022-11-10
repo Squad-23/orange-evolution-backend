@@ -7,12 +7,14 @@ const createContentController = async (req, res) => {
             idModule, subject, title, fileType, link, time,
         } = req.body;
 
-        if (!idModule || !subject || !title || !fileType || !link || !time) {
+        // if (!idModule || !subject || !title || !fileType || !link || !time) {
+        //     return res.status(400).send({ message: 'Fill in all fields' });
+        // }
+        if (!subject || !title || !fileType || !link || !time) {
             return res.status(400).send({ message: 'Fill in all fields' });
         }
-
         const contentReq = {
-            idModule,
+            // idModule,
             subject,
             title,
             fileType,
@@ -60,12 +62,28 @@ const findAllContentController = async (req, res) => {
 
 const findContentBySubjectController = async (req, res) => {
     try {
-        const { subject } = req.params;
+        const search = req.params.subject;
 
-        const content = await contentService.findContentBySubjectService(subject);
+        const content = await contentService.findContentBySubjectService(search);
 
         if (!content) {
             return res.status(400).send({ message: 'Subject not found' });
+        }
+
+        return res.send(content);
+    } catch (err) {
+        return res.status(500).send({ message: err.message });
+    }
+};
+
+const findContentByTitleController = async (req, res) => {
+    try {
+        const search = req.params.title;
+
+        const content = await contentService.findContentByTitleService(search);
+
+        if (!content) {
+            return res.status(400).send({ message: 'Title not found' });
         }
 
         return res.send(content);
@@ -135,6 +153,7 @@ export default {
     createContentController,
     findAllContentController,
     findContentBySubjectController,
+    findContentByTitleController,
     updateContentController,
     deleteContentController,
 };

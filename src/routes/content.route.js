@@ -10,4 +10,6 @@ route.get('/findBySubject/:subject', contentController.findContentBySubjectContr
 route.patch('/:id', contentController.updateContentController);
 route.delete('/:id', contentController.deleteContentController);
 
+route.get('/findByTitle/:title', contentController.findContentByTitleController);
+
 export default route;
