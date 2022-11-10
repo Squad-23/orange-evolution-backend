@@ -10,7 +10,7 @@ const findByAreaTrailService = (area) => Trail.find({ area });
 
 const findByTitleTrailService = (title) => Trail.findOne({ title });
 
-const updateTrailService = (trail) => Trail.updateOne(trail);
+const updateTrailService = (id, data) => Trail.findByIdAndUpdate(id, data);
 
 const deleteTrailService = (id) => Trail.findByIdAndDelete({ _id: id });
 

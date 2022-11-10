@@ -95,6 +95,7 @@ const findTrailByAreaController = async (req, res) => {
 
 const updateTrailController = async (req, res) => {
     try {
+        const { id } = req.params;
         const { trail } = req;
 
         const trailUpdate = {
@@ -105,7 +106,7 @@ const updateTrailController = async (req, res) => {
             duration: trail.duration,
         };
 
-        await trailService.updateTrailService(trailUpdate);
+        await trailService.updateTrailService(id, req.body);
 
         return res.send({
             message: 'trail update successfully',
@@ -113,6 +114,8 @@ const updateTrailController = async (req, res) => {
                 id: trailUpdate.id,
                 title: trailUpdate.title,
                 area: trailUpdate.area,
+                description: trailUpdate.description,
+                duration: trailUpdate.duration,
             },
         });
     } catch (err) {

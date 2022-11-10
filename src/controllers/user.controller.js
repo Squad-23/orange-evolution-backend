@@ -77,16 +77,18 @@ const findUserByEmailController = async (req, res) => {
 
 const updateUserController = async (req, res) => {
     try {
+        const { id } = req.params;
         const { user } = req;
 
         const userUpdate = {
             id: user.id,
             name: !req.body.name ? user.name : req.body.name,
+            email: !req.body.email ? user.email : req.body.email,
             password: !req.body.password ? user.password : req.body.password,
             thisADM: user.thisADM,
         };
 
-        await userService.updateUserService(userUpdate);
+        await userService.updateUserService(id, userUpdate);
 
         return res.send({
             message: 'User update successfully',

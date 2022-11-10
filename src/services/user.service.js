@@ -8,7 +8,7 @@ const findByIdUserService = (idUser) => User.findById(idUser);
 
 const findByEmailUserService = (email) => User.findOne({ email });
 
-const updateUserService = (user) => User.updateOne(user);
+const updateUserService = (id, data) => User.findByIdAndUpdate(id, data);
 
 const deleteUserService = (id) => User.findByIdAndDelete({ _id: id });
 
