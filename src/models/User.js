@@ -19,6 +19,17 @@ const UserSchema = new Schema({
     thisADM: {
         type: Boolean,
     },
+
+    trails: [{
+        type: Schema.Types.ObjectId,
+        ref: "Trail"
+    }],
+
+    completeds: [{
+        type: Schema.Types.ObjectId,
+        ref: "Content"
+    }]
+
 });
 
 const User = model('User', UserSchema);

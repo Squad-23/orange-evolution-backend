@@ -8,6 +8,8 @@ const findByIdUserService = (idUser) => User.findById(idUser);
 
 const findByEmailUserService = (email) => User.findOne({ email });
 
+const getUserSubscribedTrails = (id) => User.findById(id).populate("trails");
+
 const updateUserService = (id, data) => User.findByIdAndUpdate(id, data);
 
 const deleteUserService = (id) => User.findByIdAndDelete({ _id: id });
@@ -19,6 +21,7 @@ export default {
     createUserService,
     findAllUserService,
     findByIdUserService,
+    getUserSubscribedTrails,
     updateUserService,
     deleteUserService,
     loginUserService,

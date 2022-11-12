@@ -18,6 +18,12 @@ const TrailSchema = new Schema({
         type: Number,
         required: false,
     },
+}, {toJSON: { virtuals: true }});
+
+TrailSchema.virtual("modules", {
+    ref: "Module",
+    localField: "_id",
+    foreignField: "idTrail",
 });
 
 const Trail = model('Trail', TrailSchema);

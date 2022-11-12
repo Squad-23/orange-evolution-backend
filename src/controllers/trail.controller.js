@@ -1,4 +1,6 @@
 import trailService from '../services/trail.service.js';
+import moduleService from '../services/module.service.js';
+import contentService from '../services/content.service.js';
 
 const createTrailController = async (req, res) => {
     try {
@@ -56,6 +58,58 @@ const findAllTrailController = async (req, res) => {
 const findTrailByIdController = async (req, res) => {
     try {
         return res.send(req.trail);
+    } catch (err) {
+        return res.status(500).send({ message: err.message });
+    }
+};
+
+const findTrailByIdWithRelationsController = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const trail = await trailService.findByIdTrailService(id);
+
+        if(!trail) {
+            res.status(404).json({
+                message: "Trail not found"
+            })
+        }
+
+        let modules = await moduleService.findByTrailIdModuleService(id);
+
+        modules = modules.map(module => {
+            let subjects;
+
+            // Getting distincts subjects
+            subjects = Array.from(new Set(module.contents.map(content => content.subject)));
+
+            subjects = subjects.map(subject => {
+                if (subject) {
+                    return {
+                        title: subject,
+                        contents: module.contents.filter(content => content.subject === subject)
+                    }
+                }
+            })
+
+            console.log(subjects)
+
+            return ({
+                title: module.title,
+                description: module.description,
+                imageURL: module.imageURL,
+                subjects,
+            })
+        })
+
+        res.json({
+            _id:  trail._id,
+            area:  trail.area,
+            description:  trail.description,
+            duration:  trail.duration,
+            modules
+        });
+
     } catch (err) {
         return res.status(500).send({ message: err.message });
     }
@@ -137,6 +191,7 @@ export default {
     findAllTrailController,
     findTrailByIdController,
     findTrailByTitleController,
+    findTrailByIdWithRelationsController,
     findTrailByAreaController,
     updateTrailController,
     deleteTrailController,
