@@ -15,6 +15,12 @@ const ModuleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Trail"
     }
+}, {toJSON: { virtuals: true }});
+
+ModuleSchema.virtual("contents", {
+    ref: "Content",
+    localField: "_id",
+    foreignField: "idModule",
 });
 
 const Module = model('Module', ModuleSchema);

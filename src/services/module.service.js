@@ -2,7 +2,7 @@ import Module from '../models/Module.js';
 
 const createModuleService = (body) => Module.create(body);
 
-const findByTrailIdModuleService = (idTrail) => Module.find({ idTrail });
+const findByTrailIdModuleService = (idTrail) => Module.find({ idTrail }).populate("contents");
 
 const findByIdModuleService = (id) => Module.findById(id);
 
