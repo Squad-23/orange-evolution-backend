@@ -131,6 +131,31 @@ const login = async (req, res) => {
     }
 };
 
+const activeAdmController = async (req, res) => {
+    try {
+        const {_id, name, email, thisADM } = req.body;
+
+        const user = await userService.updateAdmService(_id, req.body);
+
+        if (!user) {
+            return res.status(400).json({ message: 'Error updating user adm' });
+        }
+
+        return res.send({
+            message: 'Adm active successfully',
+            user: {
+                _id,
+                name,
+                email,
+                thisADM,
+            },
+        });
+    } catch (err) {
+        return res.status(500).send({ message: err.message });
+    }
+};
+
+
 export default {
     createUserController,
     findAllUserController,
@@ -139,4 +164,5 @@ export default {
     updateUserController,
     deleteUserController,
     login,
+    activeAdmController,
 };

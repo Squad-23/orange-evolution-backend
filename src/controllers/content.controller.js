@@ -115,17 +115,6 @@ const updateContentController = async (req, res) => {
                 time,
             },
         });
-        // return res.send({
-        //     message: 'Content update successfully',
-        //     content: {
-        //         id: contentUpdate.id,
-        //         subject: contentUpdate.subject,
-        //         title: contentUpdate.title,
-        //         fileType: contentUpdate.fileType,
-        //         link: contentUpdate.link,
-        //         time: contentUpdate.time,
-        //     },
-        // });
     } catch (err) {
         return res.status(500).send({ message: err.message });
     }

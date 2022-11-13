@@ -14,6 +14,9 @@ const deleteUserService = (id) => User.findByIdAndDelete({ _id: id });
 
 const loginUserService = (email) => User.findOne({ email }).select('+password');
 
+const updateAdmService = (_id, adm) => User.findByIdAndUpdate(_id, adm);
+
+
 export default {
     findByEmailUserService,
     createUserService,
@@ -22,4 +25,5 @@ export default {
     updateUserService,
     deleteUserService,
     loginUserService,
+    updateAdmService,
 };

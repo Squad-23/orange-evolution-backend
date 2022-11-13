@@ -3,7 +3,7 @@ import trailService from '../services/trail.service.js';
 const createTrailController = async (req, res) => {
     try {
         const {
-            title, area, description,
+            title, area, description, duration
         } = req.body;
 
         if (!title || !area || !description) {
@@ -14,7 +14,7 @@ const createTrailController = async (req, res) => {
             title,
             area,
             description,
-            duration: 0,
+            duration
         };
 
         const trail = await trailService.createTrailService(trailRes);
@@ -30,7 +30,7 @@ const createTrailController = async (req, res) => {
                 title,
                 area,
                 description,
-                duration: 0,
+                duration
             },
         });
     } catch (err) {
@@ -103,7 +103,7 @@ const updateTrailController = async (req, res) => {
             title: !req.body.title ? trail.title : req.body.title,
             area: !req.body.area ? trail.area : req.body.area,
             description: !req.body.description ? trail.description : req.body.description,
-            duration: trail.duration,
+            duration: trail.duration ? trail.duration : req.body.duration,
         };
 
         await trailService.updateTrailService(id, req.body);

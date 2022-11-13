@@ -18,6 +18,10 @@ const TrailSchema = new Schema({
         type: Number,
         required: false,
     },
+    imageCover: {
+        type: String,
+        required: false,
+    },
 });
 
 const Trail = model('Trail', TrailSchema);

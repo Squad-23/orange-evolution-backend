@@ -1,18 +1,14 @@
 import userService from '../services/user.service.js';
 
-const validUser = async (req, res, next) => {
+const validAdm = async (req, res, next) => {
     try {
         const { id } = req.params;
 
         const user = await userService.findByIdUserService(id);
 
-
-        if (!user) {
-            return res.status(400).send({ message: 'User not found' });
+        if (!user.thisADM) {
+            return res.status(400).send({ message: 'User not admin' });
         }
-
-        req.id = id;
-        req.user = user;
 
         return next();
     } catch (err) {
@@ -20,4 +16,4 @@ const validUser = async (req, res, next) => {
     }
 };
 
-export default { validUser };
+export default { validAdm };
