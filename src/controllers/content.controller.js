@@ -3,22 +3,23 @@ import contentService from '../services/content.service.js';
 const createContentController = async (req, res) => {
     try {
         const {
-            idModule, subject, title, fileType, link, time,
+            idModule, subject, title, fileType, link, source, time, abstract, glossary
         } = req.body;
 
-        // if (!idModule || !subject || !title || !fileType || !link || !time) {
-        //     return res.status(400).send({ message: 'Fill in all fields' });
-        // }
-        if (!subject || !title || !fileType || !link || !time) {
+        if (!idModule || !subject || !title || !fileType || !link || !time) {
             return res.status(400).send({ message: 'Fill in all fields' });
         }
+
         const contentReq = {
-            // idModule,
+            idModule,
             subject,
             title,
             fileType,
             link,
+            source,
             time,
+            abstract,
+            glossary,
         };
 
         const content = await contentService.createContentService(contentReq);
@@ -36,7 +37,10 @@ const createContentController = async (req, res) => {
                 title,
                 fileType,
                 link,
+                source,
                 time,
+                abstract,
+                glossary,
             },
         });
     } catch (err) {
@@ -95,7 +99,7 @@ const updateContentController = async (req, res) => {
     try {
         const { id } = req.params;
         const {
-            subject, title, fileType, link, time,
+            idModule, subject, title, fileType, link, time,
         } = req.body;
 
         const content = await contentService.updateContentService(id, req.body);
@@ -108,6 +112,7 @@ const updateContentController = async (req, res) => {
             message: 'Content update successfully',
             content: {
                 id,
+                idModule,
                 subject,
                 title,
                 fileType,

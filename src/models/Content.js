@@ -18,8 +18,18 @@ const ContentSchema = new Schema({
         required: true,
         unique: true,
     },
+    source: {
+        type: String,
+        required: true,
+    },
     time: {
         type: Number,
+    },
+    abstract: {
+        type: String,
+    },
+    glossary: {
+        type: String,
     },
     idModule: {
         type: Schema.Types.ObjectId,
