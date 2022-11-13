@@ -1,4 +1,5 @@
 import userService from '../services/user.service.js';
+import bcrypt from 'bcrypt';
 
 const createUserController = async (req, res) => {
     try {
@@ -84,7 +85,7 @@ const updateUserController = async (req, res) => {
             id: user.id,
             name: !req.body.name ? user.name : req.body.name,
             email: !req.body.email ? user.email : req.body.email,
-            password: !req.body.password ? user.password : req.body.password,
+            password: !req.body.password ? user.password : await bcrypt.hash(req.body.password, 10),
             thisADM: user.thisADM,
         };
 
@@ -121,11 +122,14 @@ const login = async (req, res) => {
         if (!user) {
             return res.status(401).send({ message: 'Incorrect data' });
         }
-        if (user.password === password) {
-            return res.status(202).send({ message: 'User login successfully' });
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if(!isPasswordValid) {
+            return res.status(401).send({ message: 'Incorrect data' });
         }
 
-        return res.status(401).send({ message: 'Incorrect data' });
+        return res.status(202).send({ message: 'User login successfully' });
     } catch (err) {
         return res.status(500).send({ message: err.message });
     }

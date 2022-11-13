@@ -10,6 +10,7 @@ route.get('/', trailController.findAllTrailController);
 route.get('/findById/:id', idValidator.validId, trailValidator.validTrail, trailController.findTrailByIdController);
 route.get('/findByTitle/:title', trailController.findTrailByTitleController);
 route.get('/findByArea/:area', trailController.findTrailByAreaController);
+route.get('/findById/:id/relations', idValidator.validId, trailController.findTrailByIdWithRelationsController)
 route.patch('/update/:id', idValidator.validId, trailValidator.validTrail, trailController.updateTrailController);
 route.delete('/delete/:id', idValidator.validId, trailValidator.validTrail, trailController.deleteTrailController);
 

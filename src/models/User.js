@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const UserSchema = new Schema({
     name: {
@@ -19,6 +20,22 @@ const UserSchema = new Schema({
     thisADM: {
         type: Boolean,
     },
+
+    trails: [{
+        type: Schema.Types.ObjectId,
+        ref: "Trail"
+    }],
+
+    completeds: [{
+        type: Schema.Types.ObjectId,
+        ref: "Content"
+    }]
+
+});
+
+UserSchema.pre('save', async function (next) {
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
 });
 
 const User = model('User', UserSchema);
