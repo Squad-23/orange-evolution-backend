@@ -24,7 +24,7 @@ const subscribeUserInTrail = async (req, res) => {
         }
 
         user.trails.push(idTrail);
-        const response = await user.save();
+        const response = await userService.updateUserService(user.id, user);
 
         return res.status(200).json({
             message: 'User subscribed successfully',

@@ -23,11 +23,11 @@ route.post('/login', userController.login);
 route.patch('/addAdm/:id', tokenValidator.tokenValidator, admValidator.admValidator, userValidator.validUser, userController.activeAdmController);
 
 // User Trails
-route.post('/:id/trails', idValidator.validId, userTrailController.subscribeUserInTrail);
+route.patch('/:id/trails', idValidator.validId, userTrailController.subscribeUserInTrail);
 route.get('/:id/trails', idValidator.validId, userTrailController.getUserSubscribedTrails);
 
 // User Content
-route.post('/:id/content/complete', idValidator.validId, userContentController.markContentAsCompleted);
-route.post('/:id/content/reset', idValidator.validId, userContentController.dismarkContentAsCompleted);
+route.patch('/:id/content/complete', idValidator.validId, userContentController.markContentAsCompleted);
+route.patch('/:id/content/reset', idValidator.validId, userContentController.dismarkContentAsCompleted);
 
 export default route;

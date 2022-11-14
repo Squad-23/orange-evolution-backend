@@ -18,7 +18,7 @@ const markContentAsCompleted = async (req, res) => {
         }
 
         user.completeds.push(idContent);
-        await user.save();
+        await userService.updateUserService(user.id, user);
 
         return res.status(200).json({
             message: 'Content marked as completed'
@@ -44,7 +44,7 @@ const dismarkContentAsCompleted = async (req, res) => {
         }
 
         user.completeds.pull(idContent);
-        await user.save();
+        await userService.updateUserService(user.id, user);
 
         return res.status(200).json({
             message: 'Content dismarked as completed'
