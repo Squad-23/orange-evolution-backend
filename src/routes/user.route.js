@@ -4,21 +4,23 @@ import userContentController from '../controllers/userCompleted.controller.js';
 import userTrailController from '../controllers/userTrail.controller.js';
 import idValidator from '../middlewares/idValidator.middleware.js';
 import userValidator from '../middlewares/userValidator.middleware.js';
-import loginAdmValidator from '../middlewares/loginAdmValidator.middleware.js'
+import tokenValidator from '../middlewares/tokenValidator.middleware.js';
+import admValidator from '../middlewares/admValidator.middleware.js';
+import selfUserValidator from '../middlewares/selfUserValidator.middleware.js';
 
 const route = router.Router();
 
 // Find
-route.get('/', userController.findAllUserController);
-route.get('/findById/:id', idValidator.validId, userValidator.validUser, userController.findUserByIdController);
+route.get('/', tokenValidator.tokenValidator, admValidator.admValidator, userController.findAllUserController);
+route.get('/findById/:id',tokenValidator.tokenValidator, selfUserValidator.selfUserValidator, idValidator.validId, userValidator.validUser, userController.findUserByIdController);
 route.get('/findByEmail/:email', userController.findUserByEmailController);
 
 //
 route.post('/create', userController.createUserController);
-route.patch('/update/:id', idValidator.validId, userValidator.validUser, userController.updateUserController);
-route.delete('/delete/:id', idValidator.validId, userValidator.validUser, userController.deleteUserController);
+route.patch('/update/:id', tokenValidator.tokenValidator, selfUserValidator.selfUserValidator, idValidator.validId, userValidator.validUser, userController.updateUserController);
+route.delete('/delete/:id', tokenValidator.tokenValidator, selfUserValidator.selfUserValidator, idValidator.validId, userValidator.validUser, userController.deleteUserController);
 route.post('/login', userController.login);
-route.patch('/addAdm/:id', userValidator.validUser, loginAdmValidator.validAdm, userController.activeAdmController);
+route.patch('/addAdm/:id', tokenValidator.tokenValidator, admValidator.admValidator, userValidator.validUser, userController.activeAdmController);
 
 // User Trails
 route.post('/:id/trails', idValidator.validId, userTrailController.subscribeUserInTrail);

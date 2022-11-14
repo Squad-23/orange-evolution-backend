@@ -1,4 +1,5 @@
 import User from '../models/User.js';
+import jwt from 'jsonwebtoken';
 
 const createUserService = (body) => User.create(body);
 
@@ -18,6 +19,8 @@ const loginUserService = (email) => User.findOne({ email }).select('+password');
 
 const updateAdmService = (_id, adm) => User.findByIdAndUpdate(_id, adm);
 
+const generateToken = (id, thisADM) => jwt.sign({id:id, thisADM:thisADM}, process.env.SECRET_JWT, { expiresIn: 10800 });
+
 
 export default {
     findByEmailUserService,
@@ -29,4 +32,5 @@ export default {
     deleteUserService,
     loginUserService,
     updateAdmService,
+    generateToken,
 };

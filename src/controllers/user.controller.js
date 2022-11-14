@@ -129,7 +129,9 @@ const login = async (req, res) => {
             return res.status(401).send({ message: 'Incorrect data' });
         }
 
-        return res.status(202).send({ message: 'User login successfully' });
+        const token = userService.generateToken(user.id, user.thisADM);
+
+        return res.status(202).send({ message: 'User login successfully', token: token });
     } catch (err) {
         return res.status(500).send({ message: err.message });
     }
