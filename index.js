@@ -19,5 +19,6 @@ app.use('/user', userRoute);
 app.use('/trail', trailRoute);
 app.use('/trail/:idTrail/module', moduleRoute);
 app.use('/content', contentRoute);
+app.use(express.static('documentation'));
 
 app.listen(port, () => console.log(`Servidor rodando na porta: ${port}`));
