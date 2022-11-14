@@ -10,7 +10,6 @@ route.get('/', contentController.findAllContentController);
 route.get('/findBySubject/:subject', contentController.findContentBySubjectController);
 route.patch('/:id', tokenValidator.tokenValidator, admValidator.admValidator, contentController.updateContentController);
 route.delete('/:id', tokenValidator.tokenValidator, admValidator.admValidator, contentController.deleteContentController);
-
 route.get('/findByTitle/:title', contentController.findContentByTitleController);
 
 export default route;
