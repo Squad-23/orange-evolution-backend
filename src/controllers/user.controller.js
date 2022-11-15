@@ -131,15 +131,6 @@ const login = async (req, res) => {
 
         const token = userService.generateToken(user.id, user.thisADM);
 
-        const userData = {
-            id: user._id,
-            name: user.name,
-            email: user.email,
-            thisADM: user.thisADM,
-            trails: user.trails,
-            completeds: user.completeds,
-        }
-
         return res.status(202).send({ message: 'User login successfully',
             user: {
                 id: user._id,
