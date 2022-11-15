@@ -27,7 +27,6 @@ route.patch('/:id/trail', idValidator.validId, userTrailController.subscribeUser
 route.get('/:id/trails', idValidator.validId, userTrailController.getUserSubscribedTrails);
 
 // User Content
-route.patch('/:id/content/complete', idValidator.validId, userContentController.markContentAsCompleted);
-route.patch('/:id/content/reset', idValidator.validId, userContentController.dismarkContentAsCompleted);
+route.patch('/:id/content', idValidator.validId, userContentController.toggleContentCompleted);
 
 export default route;
