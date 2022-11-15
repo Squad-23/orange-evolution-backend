@@ -23,7 +23,7 @@ route.post('/login', userController.login);
 route.patch('/addAdm/:id', tokenValidator.tokenValidator, admValidator.admValidator, userValidator.validUser, userController.activeAdmController);
 
 // User Trails
-route.patch('/:id/trails', idValidator.validId, userTrailController.subscribeUserInTrail);
+route.patch('/:id/trail', idValidator.validId, userTrailController.subscribeUserInTrail);
 route.get('/:id/trails', idValidator.validId, userTrailController.getUserSubscribedTrails);
 
 // User Content
