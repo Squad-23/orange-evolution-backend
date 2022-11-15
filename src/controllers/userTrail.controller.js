@@ -81,6 +81,9 @@ const getUserSubscribedTrails = async (req, res) => {
                                         fileType: content.fileType,
                                         link: content.link,
                                         time: content.time,
+                                        source: content.source,
+                                        abstract: content.abstract,
+                                        glossary: content.glossary,
                                         completed: user.completeds.includes(
                                             content._id
                                         ),
@@ -124,6 +127,7 @@ const getUserSubscribedTrails = async (req, res) => {
                         area: trail.area,
                         description: trail.description,
                         duration: trail.duration,
+                        imageCover: trail.imageCover,
                         progress: {
                             max: modules.length,
                             completed: modules.filter(
