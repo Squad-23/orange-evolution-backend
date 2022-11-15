@@ -131,7 +131,7 @@ const login = async (req, res) => {
 
         const token = userService.generateToken(user.id, user.thisADM);
 
-        return res.status(202).send({ message: 'User login successfully', token: token });
+        return res.status(202).send({ message: 'User login successfully', user: user, token: token });
     } catch (err) {
         return res.status(500).send({ message: err.message });
     }
