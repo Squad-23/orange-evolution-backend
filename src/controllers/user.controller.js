@@ -1,14 +1,12 @@
-import userService from '../services/user.service.js';
-import bcrypt from 'bcrypt';
+import userService from "../services/user.service.js";
+import bcrypt from "bcrypt";
 
 const createUserController = async (req, res) => {
     try {
-        const {
-            name, email, password,
-        } = req.body;
+        const { name, email, password } = req.body;
 
         if (!name || !email || !password) {
-            return res.status(400).send({ message: 'Fill in all fields' });
+            return res.status(400).send({ message: "Fill in all fields" });
         }
 
         const userRes = {
@@ -21,11 +19,11 @@ const createUserController = async (req, res) => {
         const user = await userService.createUserService(userRes);
 
         if (!user) {
-            return res.status(400).send({ message: 'Error creating user' });
+            return res.status(400).send({ message: "Error creating user" });
         }
 
         return res.status(201).send({
-            message: 'User created successfully',
+            message: "User created successfully",
             user: {
                 id: user.id,
                 name,
@@ -43,7 +41,7 @@ const findAllUserController = async (req, res) => {
 
         if (users.length === 0) {
             return res.status(400).send({
-                message: 'There are no registered users',
+                message: "There are no registered users",
             });
         }
         return res.send(users);
@@ -67,7 +65,7 @@ const findUserByEmailController = async (req, res) => {
         const user = await userService.findByEmailUserService(email);
 
         if (!user) {
-            return res.status(401).send({ message: 'Incorrect data' });
+            return res.status(401).send({ message: "Incorrect data" });
         }
 
         return res.send(user);
@@ -85,14 +83,16 @@ const updateUserController = async (req, res) => {
             id: user.id,
             name: !req.body.name ? user.name : req.body.name,
             email: !req.body.email ? user.email : req.body.email,
-            password: !req.body.password ? user.password : await bcrypt.hash(req.body.password, 10),
+            password: !req.body.password
+                ? user.password
+                : await bcrypt.hash(req.body.password, 10),
             thisADM: user.thisADM,
         };
 
         await userService.updateUserService(id, userUpdate);
 
         return res.send({
-            message: 'User update successfully',
+            message: "User update successfully",
             user: {
                 id: userUpdate.id,
                 name: userUpdate.name,
@@ -107,7 +107,7 @@ const updateUserController = async (req, res) => {
 const deleteUserController = async (req, res) => {
     try {
         await userService.deleteUserService(req.id);
-        return res.status(204).send({ message: 'User deleted' });
+        return res.status(204).send({ message: "User deleted" });
     } catch (err) {
         return res.status(500).send({ message: err.message });
     }
@@ -120,18 +120,19 @@ const login = async (req, res) => {
         const user = await userService.loginUserService(email);
 
         if (!user) {
-            return res.status(401).send({ message: 'Incorrect data' });
+            return res.status(401).send({ message: "Incorrect data" });
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
-        if(!isPasswordValid) {
-            return res.status(401).send({ message: 'Incorrect data' });
+        if (!isPasswordValid) {
+            return res.status(401).send({ message: "Incorrect data" });
         }
 
         const token = userService.generateToken(user.id, user.thisADM);
 
-        return res.status(202).send({ message: 'User login successfully',
+        return res.status(202).send({
+            message: "User login successfully",
             user: {
                 id: user._id,
                 name: user.name,
@@ -139,8 +140,8 @@ const login = async (req, res) => {
                 thisADM: user.thisADM,
                 trails: user.trails,
                 completeds: user.completeds,
-                token: token
-            }
+            },
+            token,
         });
     } catch (err) {
         return res.status(500).send({ message: err.message });
@@ -149,16 +150,16 @@ const login = async (req, res) => {
 
 const activeAdmController = async (req, res) => {
     try {
-        const {_id, name, email, thisADM } = req.body;
+        const { _id, name, email, thisADM } = req.body;
 
         const user = await userService.updateAdmService(_id, req.body);
 
         if (!user) {
-            return res.status(400).json({ message: 'Error updating user adm' });
+            return res.status(400).json({ message: "Error updating user adm" });
         }
 
         return res.send({
-            message: 'Adm active successfully',
+            message: "Adm active successfully",
             user: {
                 _id,
                 name,
@@ -170,7 +171,6 @@ const activeAdmController = async (req, res) => {
         return res.status(500).send({ message: err.message });
     }
 };
-
 
 export default {
     createUserController,
